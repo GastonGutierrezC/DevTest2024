@@ -32,7 +32,7 @@ public class VotesControllers : ControllerBase
         var vote = new Votes()
         {
             VoterEmail = votesDto.VoterEmail,
-            OptionId = votesDto.OptionVotes,
+            VotesId = votesDto.OptionVotes,
             OptionVotes = 1
             
            

@@ -25,20 +25,20 @@ public class ListVoteMemory : IVoteRepository
     {
 
         
-        var getPoll = Task.FromResult(_votes.FirstOrDefault(m=> m.OptionId == id));
+        var getPoll = Task.FromResult(_votes.FirstOrDefault(m=> m.VotesId == id));
         return getPoll;
     }
 
     public async Task<Votes> AddVoteAsync(Votes votes)
     {
         
-        var poll = (await _pollRepository.GetAllPollsAsync()).FirstOrDefault(p => p.Options.Any(o => o.OptionId == votes.OptionId));
+        var poll = (await _pollRepository.GetAllPollsAsync()).FirstOrDefault(p => p.Options.Any(o => o.VotesId == votes.VotesId));
 
         if (poll == null)
         {
             return null;
         }
-        var option = poll.Options.FirstOrDefault(o => o.OptionId == votes.OptionId);
+        var option = poll.Options.FirstOrDefault(o => o.VotesId == votes.VotesId);
         if (option == null)
         {
             return null;
@@ -56,8 +56,8 @@ public class ListVoteMemory : IVoteRepository
 
     public Task<Votes> UpdateVoteAsync(Votes votes)
     {
-        votes.OptionId = _votes.Count + 1;
-        var updateVotes = _votes.FirstOrDefault(m=> m.OptionId == votes.OptionId);
+        votes.VotesId = _votes.Count + 1;
+        var updateVotes = _votes.FirstOrDefault(m=> m.VotesId == votes.VotesId);
         
         updateVotes.OptionVotes = updateVotes.OptionVotes + 1;
         
